@@ -30,5 +30,5 @@ app.use(
     }
 )
 // Inicializando o servidor
-console.log("Start Server At:3001");
-app.listen(3001);
+console.log("Start Server At:3000");
+app.listen(3000);
