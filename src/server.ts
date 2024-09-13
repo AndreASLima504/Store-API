@@ -1,6 +1,6 @@
 // Importando biblioteca
 import express,{ Request, Response, NextFunction } from "express";
-import "express-async-error"
+import "express-async-errors"
 import "reflect-metadata";
 import "./database/index";
 
@@ -31,4 +31,4 @@ app.use(
 )
 // Inicializando o servidor
 console.log("Start Server At:3000");
-app.listen(3000);
+app.listen(3000, "0.0.0.0");

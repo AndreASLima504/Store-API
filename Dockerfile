@@ -107,12 +107,12 @@ RUN apk add --no-cache --virtual .build-deps-yarn curl gnupg tar \
   && yarn --version \
   && rm -rf /tmp/*
 
-# COPY docker-entrypoint.sh /usr/local/bin/
-# ENTRYPOINT ["docker-entrypoint.sh"]
-
 WORKDIR /app
 COPY package.json .
 COPY . .
 RUN yarn install
 ENV port 3000
+
+EXPOSE 3000
+
 CMD [ "yarn", "dev" ]
