@@ -1,28 +1,30 @@
 import  { Entity, PrimaryColumn, Column, CreateDateColumn, UpdateDateColumn } from "typeorm";
 import { v4 as uuid } from "uuid";
 
-@Entity("user")
-class User {
+@Entity("sale")
+class Sale{
     @PrimaryColumn()
     readonly id!: string;
+
     @Column()
-    name!: string;
+    userId!: string;
     @Column()
-    email!: string;
+    productId!: string;
     @Column()
-    admin!: boolean;
+    clientId!: string;
     @Column()
-    password!: string;
+    quantity!: string;
+    @Column()
+    value!: string;
+
     @CreateDateColumn()
-    created_at!: Date;
+    createdAt!: Date;
     @UpdateDateColumn()
-    updated_at!: Date;
-    
+    updatedAt!: Date;
+
     constructor(){
-        if (!this.id){
-            this.id = uuid();
+        if(!this.id){
+            this.id = uuid()
         }
     }
 }
-
-export { User }
