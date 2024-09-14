@@ -9,6 +9,7 @@ class UpdateUserController {
         const id = request.params.id;
         const user = 
     {
+        id: id,
         name:name,
         email:email,
         admin:admin,

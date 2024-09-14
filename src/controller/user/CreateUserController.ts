@@ -14,8 +14,8 @@ class CreateUserController {
         admin:admin,
         password:password
     };
-    const createuserService = new CreateUserService()
-    const ret =  await createuserService.execute(user)
+    const createUserService = new CreateUserService()
+    const ret =  await createUserService.execute(user)
     return response.json(ret);
   }
 }
