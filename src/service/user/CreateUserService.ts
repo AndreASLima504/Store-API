@@ -1,20 +1,27 @@
 import { IUserInterface } from "../../interface/IUserInterface";
 import { hash } from "bcryptjs";
-
-    class CreateUserService {
-        async execute ({ name, email, admin = false, password}: IUserInterface){
-            if (!email) {
-                throw new Error ("Email Incorrect");
-            }
-            if (!password){
-                throw new Error ("Password Incorrect");
-            }
-            const passwordHash = await hash (password, 8);
-            console.log(passwordHash)
-            var vuser = {
-                id: 1, name: name, email: email, admin: admin, password: password
-            }
-            console.log("Registro incluido com sucesso")
-        }
+import { UsersRepositories } from "../../repositories/usersRepositories";
+import { getCustomRepository } from "typeorm";
+class CreateUserService {
+  async execute({ name, email, admin = false, password }: IUserInterface) {
+    if (!email) {
+      throw new Error("Email incorrect");
     }
-    export { CreateUserService }
+    if (!password) {
+      throw new Error("Password incorrect");
+    }
+    const passwordHash = await hash(password, 8);
+
+    const usersRepository = getCustomRepository(UsersRepositories);
+    const user = usersRepository.create(
+      {
+        name,
+        email,
+        admin,
+        password: passwordHash,
+      });
+      await usersRepository.save(user);  
+      return user;
+  }
+}
+export { CreateUserService };

@@ -9,7 +9,7 @@ import { router } from "./routes";
 
 const app = express();
 
-// Declarando a biblioetac
+// Declarando a biblioteca
 app.use(express.json()); 
 // Inicializando a função de rotas
 app.use(router);

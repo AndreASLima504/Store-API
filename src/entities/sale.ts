@@ -28,3 +28,5 @@ class Sale{
         }
     }
 }
+
+export { Sale }
