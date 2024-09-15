@@ -44,7 +44,6 @@ class CategoryController{
         const id = request.params.id
         const categoryService = new CategoryService()
         
-        console.log("AAAA")
         const res = await categoryService.deleteCategory(id)
         return response.json(res)
     }
