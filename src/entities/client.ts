@@ -1,10 +1,9 @@
 import { PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, Entity } from "typeorm";
-import { v4 as uuid } from "uuid"
 
 @Entity("client")
 class Client{
     @PrimaryGeneratedColumn("uuid")
-    id!: string;
+    readonly id!: string;
     @Column()
     name!: string
     @Column()

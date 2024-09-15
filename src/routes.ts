@@ -28,6 +28,14 @@ router.put("/users/:id", userController.updateUser);
 router.post("/users", userController.createUser);
 router.delete("/users/:id", userController.deleteUser);
 
+
+// Rotas para category
+router.get("/categories", categoryController.listCategories)
+router.put("/categories/:id", categoryController.updateCategory)
+router.post("/categories", categoryController.createCategory)
+router.delete("/categories/:id", categoryController.deleteCategory)
+
+
 // Rotas para sale
 router.get("/sales", saleController.listSales)
 router.put("/sales/:id", saleController.updateSale)

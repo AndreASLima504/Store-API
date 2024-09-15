@@ -1,11 +1,9 @@
 import  { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn } from "typeorm";
-import { v4 as uuid } from "uuid";
 
 @Entity("sale")
 class Sale{
     @PrimaryGeneratedColumn("uuid")
-    id!: string;
-
+    readonly id!: string;
     @Column()
     userId!: string;
     @Column()

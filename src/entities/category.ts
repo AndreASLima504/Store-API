@@ -1,10 +1,9 @@
 import  { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn } from "typeorm";
-import { v4 as uuid } from "uuid";
 
 @Entity("category")
 class  Category {
     @PrimaryGeneratedColumn("uuid")
-    id!: string;
+    readonly id!: string;
     @Column()
     name!: string;
     @Column()
@@ -14,10 +13,5 @@ class  Category {
     @UpdateDateColumn()
     updatedAt!: Date;
 
-    // constructor() {
-    //     if(!this.id){
-    //         this.id = uuid();
-    //     }
-    // }
 }
 export { Category }

@@ -57,8 +57,8 @@ class UserService{
         user.admin=admin
         user.password=passwordHash
 
-        const newUser = await usersRepository.update(id, user)
-        return newUser
+        const res = await usersRepository.update(id, user)
+        return res
     }
 
 
