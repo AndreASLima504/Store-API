@@ -1,10 +1,10 @@
-import { IUserInterface } from "../interface/IUserInterface";
+import { IUserRequest } from "../interface/IUserRequest";
 import { hash } from "bcryptjs";
 import { UsersRepositories } from "../repositories/usersRepositories";
 import { getCustomRepository } from "typeorm";
 
 class UserService{
-    async createUser({ name, email, admin = false, password }: IUserInterface) {
+    async createUser({ name, email, admin = false, password }: IUserRequest) {
         if (!email) {
           throw new Error("Email incorrect");
         }
@@ -35,7 +35,7 @@ class UserService{
     }
 
 
-    async updateUser({id, name, email, admin = false, password}: IUserInterface){
+    async updateUser({id, name, email, admin = false, password}: IUserRequest){
         console.log(id)
         if (!email) {
             throw new Error ("Email Incorrect");

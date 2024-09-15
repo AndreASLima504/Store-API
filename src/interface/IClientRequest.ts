@@ -1,5 +1,5 @@
 interface IClientInterface {
-    id?: string
+    id?: string;
     name: string;
     description?:string;
     cpf: string;

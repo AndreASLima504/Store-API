@@ -1,4 +1,4 @@
-import { ISaleInterface } from "../../interface/ISaleInterface";
+import { ISaleInterface } from "../../interface/ISaleRequest";
 
     class UpdateSaleService {
         async execute ({id, userId, productId, clientId, quantity, value}: ISaleInterface){

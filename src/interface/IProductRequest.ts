@@ -2,7 +2,7 @@ interface IProductInterface {
     id?: string;
     name: string;
     description?:string;
-    price: string;
+    price: number;
     categoryId: string;
 }
 

@@ -3,8 +3,8 @@ interface ISaleInterface {
     userId: string;
     productId: string;
     clientId: string;
-    quantity: string;
-    value: string;
+    quantity: number;
+    value: number;
 }
 
     export{ ISaleInterface }

@@ -1,27 +1,23 @@
 import  { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn } from "typeorm";
 import { v4 as uuid } from "uuid";
 
-@Entity("sale")
-class Sale{
+@Entity("category")
+class  Category {
     @PrimaryGeneratedColumn("uuid")
     id!: string;
-
     @Column()
-    userId!: string;
+    name!: string;
     @Column()
-    productId!: string;
-    @Column()
-    clientId!: string;
-    @Column()
-    quantity!: number;
-    @Column()
-    value!: number;
-
+    description!: string;
     @CreateDateColumn()
     createdAt!: Date;
     @UpdateDateColumn()
     updatedAt!: Date;
 
+    // constructor() {
+    //     if(!this.id){
+    //         this.id = uuid();
+    //     }
+    // }
 }
-
-export { Sale }
+export { Category }

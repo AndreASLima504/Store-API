@@ -1,4 +1,4 @@
-interface IUserInterface {
+interface IUserRequest {
     id?: string;
     name: string;
     email:string;
@@ -6,4 +6,4 @@ interface IUserInterface {
     password: string;
 }
 
-    export{ IUserInterface }
+    export{ IUserRequest }

@@ -1,4 +1,4 @@
-import { IProductInterface } from "../../interface/IProductInterface";
+import { IProductInterface } from "../../interface/IProductRequest";
 
     class UpdateProductService {
         async execute ({ id, name, description, price, categoryId}: IProductInterface){
