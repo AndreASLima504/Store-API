@@ -16,6 +16,7 @@ const autenticateUserController  = new AuthenticateUserController();
 
 router.post("/login", autenticateUserController.handle);
 
+//Rotas para users
 router.get("/users", userController.listUsers);
 router.put("/users/:id", userController.updateUser);
 router.post("/users", userController.createUser);

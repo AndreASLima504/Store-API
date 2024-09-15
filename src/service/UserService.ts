@@ -1,6 +1,6 @@
 import { IUserRequest } from "../interface/IUserRequest";
 import { hash } from "bcryptjs";
-import { UsersRepositories } from "../repositories/usersRepositories";
+import { UserRepositories } from "../repositories/userRepositories";
 import { getCustomRepository } from "typeorm";
 
 class UserService{
@@ -13,7 +13,7 @@ class UserService{
         }
         const passwordHash = await hash(password, 8);
     
-        const usersRepository = getCustomRepository(UsersRepositories);
+        const usersRepository = getCustomRepository(UserRepositories);
         const user = usersRepository.create(
         {
             name,
@@ -27,7 +27,7 @@ class UserService{
 
 
     async listUsers() {
-        const usersRepositories = getCustomRepository(UsersRepositories);
+        const usersRepositories = getCustomRepository(UserRepositories);
         const users = await usersRepositories
         .createQueryBuilder("user")
         .getMany()
@@ -44,7 +44,7 @@ class UserService{
             throw new Error ("Password Incorrect");
         }
         const passwordHash = await hash(password, 8);
-        const usersRepository = getCustomRepository(UsersRepositories);
+        const usersRepository = getCustomRepository(UserRepositories);
         
         const userAlreadyExists = await usersRepository.findOne({
             id,
@@ -67,7 +67,7 @@ class UserService{
             throw new Error("Id incorrect");
         }
 
-        const usersRepository = getCustomRepository(UsersRepositories);
+        const usersRepository = getCustomRepository(UserRepositories);
 
         const userAlreadyExists = await usersRepository.findOne({
             id,
