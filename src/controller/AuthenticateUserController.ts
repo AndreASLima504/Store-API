@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import { AuthenticateUserService } from "../../service/authentication/AuthenticationUserService";
+import { AuthenticateUserService } from "../service/AuthenticationUserService";
 
 
 class AuthenticateUserController {
@@ -8,13 +8,13 @@ class AuthenticateUserController {
 
         const authenticateUserService = new AuthenticateUserService();
 
-    const token = await authenticateUserService.execute({
-        email,
-        password
-    });
+        const token = await authenticateUserService.execute({
+            email,
+            password
+        });
 
-    return response.json(token);
-}
+        return response.json(token);
+    }
 }
 
 export { AuthenticateUserController };

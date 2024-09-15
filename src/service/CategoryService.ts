@@ -21,6 +21,7 @@ class CategoryService{
         return category;
     }
 
+
     async listCategories(){
         const categoryRepositories = getCustomRepository(CategoryRepositories);
         const categories = await categoryRepositories
@@ -29,6 +30,7 @@ class CategoryService{
         
         return categories
     }
+
 
     async updateCategory({ id, name, description }){
         const categoryRepositories = getCustomRepository(CategoryRepositories)
@@ -48,6 +50,7 @@ class CategoryService{
         return res
     }
 
+
     async deleteCategory(id:any){
         if(!id){
             throw new Error("Id error")
@@ -62,8 +65,11 @@ class CategoryService{
             throw new Error("Category not found")
         }
 
-        const res = await categoryRepositories.delete(id)
-        return res
+        await categoryRepositories.delete(id)
+        var messageDelete = {
+            message: "Registro excluido com sucesso"
+        }
+        return messageDelete
     }
 }
 

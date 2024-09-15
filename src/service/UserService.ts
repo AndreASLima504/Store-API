@@ -50,7 +50,7 @@ class UserService{
             id,
         });
             if(!user) {
-            throw new Error("User not exists");
+            throw new Error("User does not exist");
         }
 
         user.name=name

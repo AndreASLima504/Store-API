@@ -1,7 +1,7 @@
 import { compare } from "bcryptjs";
 import { hash } from "bcryptjs";
 import { sign } from "jsonwebtoken";
-import { IAuthenticateRequest } from "../../interface/IAuthenticateRequest";
+import { IAuthenticateRequest } from "../interface/IAuthenticateRequest";
 
 // ES Modules
 import { lastDayOfMonth } from 'date-fns';

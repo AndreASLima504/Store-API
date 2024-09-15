@@ -1,6 +1,6 @@
 import { Router } from "express";
 
-import { AuthenticateUserController } from "./controller/authentication/AuthenticateUserController";
+import { AuthenticateUserController } from "./controller/AuthenticateUserController";
 import { ensureAuthenticated} from "./middleware/ensureAuthenticated";
 
 import { UserController } from "./controller/UserController";
@@ -28,6 +28,18 @@ router.put("/users/:id", userController.updateUser);
 router.post("/users", userController.createUser);
 router.delete("/users/:id", userController.deleteUser);
 
+//Rotas para client
+router.get("/clients", clientController.listClients);
+router.put("/clients/:id", clientController.updateClient);
+router.post("/clients", clientController.createClient);
+router.delete("/clients/:id", clientController.deleteClient);
+
+//Rotas para product
+router.get("/products", productController.listProducts)
+router.put("/products/:id", productController.updateProduct)
+router.post("/products", productController.createProduct)
+router.delete("/products/:id", productController.deleteProduct)
+
 
 // Rotas para category
 router.get("/categories", categoryController.listCategories)
@@ -41,6 +53,8 @@ router.get("/sales", saleController.listSales)
 router.put("/sales/:id", saleController.updateSale)
 router.post("/sales", saleController.createSale)
 router.delete("/sales/:id", saleController.deleteSale)
+
+
 
 
 router.use(ensureAuthenticated)

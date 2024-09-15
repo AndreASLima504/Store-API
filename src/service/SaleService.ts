@@ -19,6 +19,7 @@ class SaleService{
         return sale;
     }
 
+
     async listSales(){
         const saleRepositories = getCustomRepository(SaleRepositories);
         const sales = await saleRepositories
@@ -26,6 +27,7 @@ class SaleService{
         .getMany()
         return sales
     }
+
 
     async updateSale({id, userId, productId, clientId, quantity, value}: ISaleRequest){
         const saleRepositories = getCustomRepository(SaleRepositories)
@@ -47,8 +49,8 @@ class SaleService{
         return newSale
     }
 
+
     async deleteSale(id:any){
-        console.log("aaaa")
         if(!id){
             throw new Error("Id incorrect")
         }
