@@ -24,7 +24,7 @@ class UserController{
     async listUsers(request: Request, response: Response) {
         const userService = new UserService()
         const users = await userService.listUsers();
-    return response.json(users);
+        return response.json(users);
     }
 
 

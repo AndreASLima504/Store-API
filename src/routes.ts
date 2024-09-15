@@ -1,16 +1,22 @@
 import { Router } from "express";
 
-import { CreateCategoryController } from "./controller/category/CreateCategoryController";
-import { ListCategoryController } from "./controller/category/ListCategoryController";
 import { AuthenticateUserController } from "./controller/authentication/AuthenticateUserController";
 import { ensureAuthenticated} from "./middleware/ensureAuthenticated";
+
 import { UserController } from "./controller/UserController";
+import { SaleController } from "./controller/SaleController";
+import { ProductController } from "./controller/ProductController";
+import { ClientController } from "./controller/ClientController";
+import { CategoryController } from "./controller/CategoryController";
 const router = Router();
 
+// Importando as controllers
 const userController = new UserController();
+const saleController = new SaleController();
+const clientController = new ClientController();
+const productController = new ProductController();
+const categoryController = new CategoryController();
 
-const createCategoryController  = new CreateCategoryController();
-const listCategoryController  = new ListCategoryController();
 const autenticateUserController  = new AuthenticateUserController();
 
 
@@ -22,9 +28,13 @@ router.put("/users/:id", userController.updateUser);
 router.post("/users", userController.createUser);
 router.delete("/users/:id", userController.deleteUser);
 
+// Rotas para sale
+router.get("/sales", saleController.listSales)
+router.put("/sales/:id", saleController.updateSale)
+router.post("/sales", saleController.createSale)
+router.delete("/sales/:id", saleController.deleteSale)
 
-router.get("/category", listCategoryController.handle);
-router.post("/category", createCategoryController.handle);
+
 router.use(ensureAuthenticated)
 
 export {router} 

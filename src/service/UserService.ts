@@ -46,19 +46,19 @@ class UserService{
         const passwordHash = await hash(password, 8);
         const usersRepository = getCustomRepository(UserRepositories);
         
-        const userAlreadyExists = await usersRepository.findOne({
+        const user = await usersRepository.findOne({
             id,
         });
-            if(!userAlreadyExists) {
+            if(!user) {
             throw new Error("User not exists");
         }
 
-        userAlreadyExists.name=name
-        userAlreadyExists.admin=admin
-        userAlreadyExists.password=passwordHash
+        user.name=name
+        user.admin=admin
+        user.password=passwordHash
 
-        const user = await usersRepository.update(id, userAlreadyExists)
-        return user
+        const newUser = await usersRepository.update(id, user)
+        return newUser
     }
 
 
@@ -69,12 +69,12 @@ class UserService{
 
         const usersRepository = getCustomRepository(UserRepositories);
 
-        const userAlreadyExists = await usersRepository.findOne({
+        const user = await usersRepository.findOne({
             id,
         });
 
-        if (!userAlreadyExists){
-            throw new Error("User not exists");
+        if (!user){
+            throw new Error("User does not exist");
         }
 
         await usersRepository.delete(id);
