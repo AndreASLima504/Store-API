@@ -11,7 +11,10 @@ class UserService{
         if (!password) {
           throw new Error("Password incorrect");
         }
-        const passwordHash = await hash(password, 8);
+
+        var bcrypt = require('bcryptjs');
+        var salt = bcrypt.genSaltSync(10);
+        var passwordHash = bcrypt.hashSync(password, salt);
     
         const usersRepository = getCustomRepository(UserRepositories);
         const user = usersRepository.create(

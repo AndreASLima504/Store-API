@@ -22,7 +22,7 @@ class AuthenticateUserService {
         const passwordMatch = await compare(password, passwordHash);
 
         if (!passwordMatch) {
-            throw new Error ("Senha incorreta");
+            throw new Error ("Senha ou e-mail incorreto");
         }
         
         
