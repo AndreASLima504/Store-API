@@ -1,8 +1,5 @@
 import { Request, Response } from "express";
-import { CreateUserService } from "../service/user/CreateUserService";
-import { ListUserService } from "../service/user/ListUserService";
-import { UpdateUserService } from "../service/user/UpdateUserService";
-import { DeleteUserService } from "../service/user/DeleteUserService";
+import { UserService } from "../service/UserService";
 // import { UserService } from "../../service/user/UserService";
 
 class UserController{
@@ -18,15 +15,15 @@ class UserController{
             admin:admin,
             password:password
         };
-    const createUserService = new CreateUserService()
-    const ret =  await createUserService.execute(user)
+    const userService = new UserService()
+    const ret =  await userService.createUser(user)
     return response.json(ret);
     }
 
 
     async listUsers(request: Request, response: Response) {
-        const listUserService = new ListUserService()
-        const users = await listUserService.execute();
+        const userService = new UserService()
+        const users = await userService.listUsers();
     return response.json(users);
     }
 
@@ -42,8 +39,8 @@ class UserController{
         admin:admin,
         password:password
     };
-    const updateuserService = new UpdateUserService()
-    const ret =  await updateuserService.execute(user)
+    const userService = new UserService()
+    const ret =  await userService.updateUser(user)
     return response.json(ret);
     }
 
@@ -51,8 +48,8 @@ class UserController{
     async deleteUser(request: Request, response: Response) {
         const id = request.params.id;
     
-        const deleteUserService = new DeleteUserService()
-        const ret =  await deleteUserService.execute(id)
+        const userService = new UserService()
+        const ret =  await userService.deleteUser(id)
     
         return response.json(ret)
       }
