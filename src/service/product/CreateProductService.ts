@@ -1,7 +1,7 @@
-import { IProductInterface } from "../../interface/IProductRequest";
+import { IProductRequest } from "../../interface/IProductRequest";
 
     class CreateProductService {
-        async execute ({ name, description, price, categoryId}: IProductInterface){
+        async execute ({ name, description, price, categoryId}: IProductRequest){
             var vuser = {
                 id: 1, name: name, description: description, price: price, categoryId: categoryId
             }

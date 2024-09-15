@@ -1,7 +1,7 @@
-import { IClientInterface } from "../../interface/IClientRequest";
+import { IClientRequest } from "../../interface/IClientRequest";
 
     class CreateClientService {
-        async execute ({ name, description, cpf, address, phone}: IClientInterface){
+        async execute ({ name, description, cpf, address, phone}: IClientRequest){
             var vuser = {
                 id: 1, name: name, description: description, cpf: cpf, address: address, phone: phone
             }

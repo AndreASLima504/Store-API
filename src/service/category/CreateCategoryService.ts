@@ -1,7 +1,7 @@
-import { ICategoryInterface } from "../../interface/ICategoryRequest";
+import { ICategoryRequest } from "../../interface/ICategoryRequest";
 
     class CreateCategoryService {
-        async execute ({ name, description}: ICategoryInterface){
+        async execute ({ name, description}: ICategoryRequest){
             
             var vuser = {
                 id: 1, name: name, description: description

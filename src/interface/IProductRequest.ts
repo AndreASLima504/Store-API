@@ -1,4 +1,4 @@
-interface IProductInterface {
+interface IProductRequest {
     id?: string;
     name: string;
     description?:string;
@@ -6,4 +6,4 @@ interface IProductInterface {
     categoryId: string;
 }
 
-    export{ IProductInterface }
+    export{ IProductRequest }

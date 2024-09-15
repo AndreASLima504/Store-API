@@ -1,7 +1,7 @@
-import { ISaleInterface } from "../../interface/ISaleRequest";
+import { ISaleRequest } from "../../interface/ISaleRequest";
 
     class UpdateSaleService {
-        async execute ({id, userId, productId, clientId, quantity, value}: ISaleInterface){
+        async execute ({id, userId, productId, clientId, quantity, value}: ISaleRequest){
             var vuser = {
                 id: id, userId: userId, productId: productId, clientId: clientId, quantity: quantity, value: value
             }

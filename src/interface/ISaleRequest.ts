@@ -1,4 +1,4 @@
-interface ISaleInterface {
+interface ISaleRequest {
     id?: string;
     userId: string;
     productId: string;
@@ -7,4 +7,4 @@ interface ISaleInterface {
     value: number;
 }
 
-    export{ ISaleInterface }
+    export{ ISaleRequest }

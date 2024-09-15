@@ -1,4 +1,4 @@
-import { ISaleInterface } from "../interface/ISaleRequest";
+import { ISaleRequest } from "../interface/ISaleRequest";
 
 class SaleService{
     

@@ -1,4 +1,4 @@
-interface IClientInterface {
+interface IClientRequest {
     id?: string;
     name: string;
     description?:string;
@@ -7,4 +7,4 @@ interface IClientInterface {
     phone: string;
 }
 
-    export{ IClientInterface }
+    export{ IClientRequest }
