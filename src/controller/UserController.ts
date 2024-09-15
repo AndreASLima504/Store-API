@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import { UserService } from "../service/UserService";
+import { ensureAuthenticated } from "../middleware/ensureAuthenticated";
 
 class UserController{
 
@@ -7,16 +8,15 @@ class UserController{
     async createUser(request: Request, response: Response) {
         const {name, email, admin, password } = request.body;
         const user =
-        
         {
             name:name,
             email:email,
             admin:admin,
             password:password
         };
-    const userService = new UserService()
-    const ret =  await userService.createUser(user)
-    return response.json(ret);
+        const userService = new UserService()
+        const ret =  await userService.createUser(user)
+        return response.json(ret);
     }
 
 

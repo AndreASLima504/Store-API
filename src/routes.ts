@@ -18,9 +18,13 @@ const productController = new ProductController();
 const categoryController = new CategoryController();
 
 const autenticateUserController  = new AuthenticateUserController();
+router.post("/login", autenticateUserController.authenticateUser);
+router.use((req, res, next) => {
+    console.log('Time:', Date.now())
+    ensureAuthenticated(req, res, next)
+})
 
 
-router.post("/login", autenticateUserController.handle);
 
 //Rotas para users
 router.get("/users", userController.listUsers);
@@ -56,7 +60,6 @@ router.delete("/sales/:id", saleController.deleteSale)
 
 
 
-
-router.use(ensureAuthenticated)
+// router.use(ensureAuthenticated(req))
 
 export {router} 

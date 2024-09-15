@@ -1,6 +1,6 @@
 import { compare } from "bcryptjs";
 import { hash } from "bcryptjs";
-import { sign } from "jsonwebtoken";
+import { sign, verify } from "jsonwebtoken";
 import { IAuthenticateRequest } from "../interface/IAuthenticateRequest";
 import { UserRepositories } from "../repositories/userRepositories";
 
@@ -9,7 +9,8 @@ import { lastDayOfMonth } from 'date-fns';
 import { getCustomRepository } from "typeorm";
 
 class AuthenticateUserService {
-    async execute({email, password}: IAuthenticateRequest){
+    publicKey = "UMC-EngSoftware-2024"
+    async authenticateUser({email, password}: IAuthenticateRequest){
         const userRepositories = getCustomRepository(UserRepositories)
         const user = await userRepositories.findOne({
             email
@@ -31,7 +32,7 @@ class AuthenticateUserService {
             {
                 email: email, 
             },
-            "UMC-EngSoftware-2024",
+            this.publicKey,
             {
                 subject: ("others"),
                 expiresIn: "2h",
@@ -48,6 +49,8 @@ class AuthenticateUserService {
 
         return {token: token, exp: expDate};
     }
+
+
 }
 
 export { AuthenticateUserService };

@@ -4,6 +4,8 @@ interface IPayload {
   sub: string;
   email: string;
 }
+
+
 export function ensureAuthenticated(
   request: Request,
   response: Response,
@@ -11,6 +13,7 @@ export function ensureAuthenticated(
 ) {
   // Receber o token
   const authToken = request.headers.authorization;
+  console.log(authToken)
   // Validar se token está preenchido
   if (!authToken) {
     return response.status(401).end();
@@ -18,7 +21,7 @@ export function ensureAuthenticated(
   const [, token] = authToken.split(" ");
   try {
     // Validar se token é válido
-    const { sub,email } = verify(
+    const { sub, email } = verify(
       token,
       "UMC-EngSoftware-2024"
     ) as IPayload;
