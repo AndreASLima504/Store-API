@@ -16,15 +16,6 @@ class AuthenticateUserController {
         return response.json({token: res.token, expiration: res.exp});
     }
 
-    // async verifyToken(request: Request, response: Response){
-    //     const token = request.headers.authorization.split(' ')[1];
-
-    //     console.log(token)
-    //     const authenticateUserService = new AuthenticateUserService()
-    //     const res = await authenticateUserService.verifyToken(token)
-        
-    //     return res
-    // }
 }
 
 export { AuthenticateUserController };

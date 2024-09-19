@@ -1,4 +1,5 @@
-import  { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn } from "typeorm";
+import  { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, ManyToOne, JoinColumn } from "typeorm";
+import { Client } from "./client";
 
 @Entity("user")
 class User {
@@ -12,6 +13,13 @@ class User {
     admin!: boolean;
     @Column()
     password!: string;
+    @Column({ nullable: true})
+    clientId: string
+
+    @ManyToOne(() => Client, (client) => client.users, { nullable: true})
+    @JoinColumn({name: "clientId"})
+    client = Client
+
     @CreateDateColumn()
     created_at!: Date;
     @UpdateDateColumn()

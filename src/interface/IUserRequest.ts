@@ -4,6 +4,7 @@ interface IUserRequest {
     email:string;
     admin?: boolean;
     password: string;
+    clientId?: string;
 }
 
     export{ IUserRequest }

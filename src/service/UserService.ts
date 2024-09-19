@@ -4,7 +4,7 @@ import { UserRepositories } from "../repositories/userRepositories";
 import { getCustomRepository } from "typeorm";
 
 class UserService{
-    async createUser({ name, email, admin = false, password }: IUserRequest) {
+    async createUser({ name, email, admin = false, password, clientId }: IUserRequest) {
         if (!email) {
           throw new Error("Email incorrect");
         }
@@ -23,6 +23,7 @@ class UserService{
             email,
             admin,
             password: passwordHash,
+            clientId: clientId
         });
         await usersRepository.save(user);  
         return user;

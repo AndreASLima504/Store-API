@@ -18,18 +18,20 @@ const productController = new ProductController();
 const categoryController = new CategoryController();
 
 const autenticateUserController  = new AuthenticateUserController();
+
+// Rota para cadastrar e autenticar usuário
+router.post("/users", userController.createUser);
 router.post("/login", autenticateUserController.authenticateUser);
+
 router.use((req, res, next) => {
     console.log('Time:', Date.now())
     ensureAuthenticated(req, res, next)
 })
 
 
-
 //Rotas para users
 router.get("/users", userController.listUsers);
 router.put("/users/:id", userController.updateUser);
-router.post("/users", userController.createUser);
 router.delete("/users/:id", userController.deleteUser);
 
 //Rotas para client

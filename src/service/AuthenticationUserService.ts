@@ -1,11 +1,9 @@
 import { compare } from "bcryptjs";
-import { hash } from "bcryptjs";
-import { sign, verify } from "jsonwebtoken";
+import { sign } from "jsonwebtoken";
 import { IAuthenticateRequest } from "../interface/IAuthenticateRequest";
 import { UserRepositories } from "../repositories/userRepositories";
 
 // ES Modules
-import { lastDayOfMonth } from 'date-fns';
 import { getCustomRepository } from "typeorm";
 
 class AuthenticateUserService {

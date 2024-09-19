@@ -1,4 +1,5 @@
-import { PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, Entity } from "typeorm";
+import { PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, Entity, OneToMany } from "typeorm";
+import { User } from "./user";
 
 @Entity("client")
 class Client{
@@ -15,6 +16,10 @@ class Client{
     @Column()
     phone!: string;
     
+    @OneToMany(() => User, (user) => user.client)
+    users!: User[]
+
+
     @CreateDateColumn()
     createdAt!: Date
     @UpdateDateColumn()
