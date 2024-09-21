@@ -40,7 +40,6 @@ class UserService{
 
 
     async updateUser({id, name, email, admin = false, password}: IUserRequest){
-        console.log(id)
         if (!email) {
             throw new Error ("Email Incorrect");
         }

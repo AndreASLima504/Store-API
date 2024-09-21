@@ -1,5 +1,6 @@
-import { PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, Entity, ManyToOne, JoinColumn } from "typeorm";
+import { PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, Entity, ManyToOne, JoinColumn, ManyToMany, JoinTable } from "typeorm";
 import { Category } from "./category";
+import { Sale } from "./sale";
 
 @Entity("product")
 class  Product {
@@ -17,6 +18,10 @@ class  Product {
     @ManyToOne(() => Category, (category) => category.products)
     @JoinColumn({ name: "categoryId" })
     category: Category
+
+    @ManyToMany((type) => Sale, (sale) => sale.productList, { cascade: true})
+    @JoinTable()
+    sales: Sale[]
 
 
     @CreateDateColumn()
