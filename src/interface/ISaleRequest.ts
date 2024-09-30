@@ -1,10 +1,14 @@
 interface ISaleRequest {
     id?: string;
     userId: string;
-    products: string[];
-    clientId: string;
-    quantity: number;
-    value: number;
+    products: productToSaleRequest[];
+    value?: number;
 }
 
-    export{ ISaleRequest }
+interface productToSaleRequest{
+    productId: string,
+    quantity: number,
+    subtotal?: number
+}
+
+    export{ ISaleRequest, productToSaleRequest }

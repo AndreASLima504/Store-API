@@ -3,15 +3,11 @@ import { SaleService } from "../service/SaleService";
 
 class SaleController {
     async createSale(request: Request, response: Response) {
-        const {products, clientId, userId, quantity, value} = request.body;
-
+        const {products, userId} = request.body;
         const sale = 
         {
             userId:userId,
             products:products,
-            clientId:clientId,
-            quantity:quantity,
-            value:value
         };
         const saleService = new SaleService()
         const ret =  await saleService.createSale(sale)

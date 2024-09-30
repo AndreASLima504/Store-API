@@ -4,35 +4,57 @@ import { ISaleRequest } from "../interface/ISaleRequest";
 import { ProductRepositories } from "../repositories/productRepositories";
 import { SaleRepositories } from "../repositories/saleRepositories";
 import { getCustomRepository } from "typeorm";
+import { ProductToSale } from "../entities/productToSale";
+import { ProductToSaleRepositories } from "../repositories/productToSale";
 
 
 class SaleService{
     // Recebe lista de ids dos produtos em string[]
-    async createSale({userId, products, clientId, quantity, value}: ISaleRequest){
+    async createSale({userId, products}: ISaleRequest){
         const saleRepositories = getCustomRepository(SaleRepositories)
         // Cria uma nova lista de product[]
         const productRepositories = getCustomRepository(ProductRepositories)
-        const productList: Product[] = []
-        // Itera na lista de ids, inserindo objetos Product na lista
-        for (const id of products) {
-            const product = await productRepositories.findOne({ id, });
-            if(!product){
-                continue
-            }
-            productList.push(product)
-        }
-        
+        const productToSaleRepositories = getCustomRepository(ProductToSaleRepositories)
+        const productToSale: ProductToSale[] = []
+
         const sale = saleRepositories.create({
             userId,
-            productList,
-            clientId,
-            quantity,
-            value,
+            productToSale,
+            value: 0, 
         })
-        console.log(products)
+        
+        // Itera na lista de ids, inserindo objetos Product na lista
+        let saleFinalValue = 0
 
+        for (const p of products) {
+            const product = await productRepositories.findOne({ where: { id: p.productId } });
+            if(!product){
+                throw new Error("Error 404, product not found")
+            }
+
+            const subtotal = p.quantity * product.price
+            
+            const newProdToSale = productToSaleRepositories.create({
+                saleId: sale.id,
+                productId: p.productId,
+                quantity: p.quantity,
+                subtotal
+            })
+            saleFinalValue += subtotal
+            productToSale.push(newProdToSale)
+        }
+        
+        sale.value = saleFinalValue
+        sale.productToSale = productToSale
+        
         // Método que cria e salva tupla no banco
-        await saleRepositories.save(sale);
+        const saleId = (await saleRepositories.save(sale)).id;
+        
+        console.log(sale, saleId)
+        for(const item of productToSale){
+            item.saleId = saleId
+            await productToSaleRepositories.save(item)
+        }
         return sale;
     }
 
@@ -46,32 +68,41 @@ class SaleService{
     }
 
 
-    async updateSale({id, userId, products, clientId, quantity, value}: ISaleRequest){
+    async updateSale({id, userId, products}: ISaleRequest){
         const saleRepositories = getCustomRepository(SaleRepositories)
-        
+        const productToSaleRepositories = getCustomRepository(ProductToSaleRepositories)
+
         const sale = await saleRepositories.findOne({
             id,
         });
         if(!sale){
-            throw new Error("Sale not exists")
+            throw new Error("Sale does not exist")
         }
 
         const productRepositories = getCustomRepository(ProductRepositories)
-        const productList: Product[] = []
+        const productToSale: ProductToSale[] = []
         
-        for (const id of products) {
-            const product = await productRepositories.findOne({ id, });
+        let saleFinalValue
+        for (const p of products) {
+            const product = await productRepositories.findOne({ where: { id: p.productId } });
             if(!product){
                 continue
             }
-            productList.push(product)
+            
+            const subtotal = p.quantity * product.price
+            
+            const newProdToSale = productToSaleRepositories.create({
+                saleId: sale.id,
+                productId: p.productId,
+                quantity: p.quantity,
+                subtotal
+            })
+            saleFinalValue += subtotal
+            productToSale.push(newProdToSale)
         }
 
         sale.userId = userId
-        sale.productList = productList
-        sale.clientId = clientId
-        sale.quantity = quantity
-        sale.value = value
+        sale.productToSale = productToSale
 
         const newSale = await saleRepositories.update(id, sale)
         return newSale

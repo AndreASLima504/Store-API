@@ -1,5 +1,6 @@
-import  { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, ManyToOne, JoinColumn } from "typeorm";
+import  { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, ManyToOne, JoinColumn, OneToMany } from "typeorm";
 import { Client } from "./client";
+import { Sale } from "./sale";
 
 @Entity("user")
 class User {
@@ -19,6 +20,9 @@ class User {
     @ManyToOne(() => Client, (client) => client.users, { nullable: true})
     @JoinColumn({name: "clientId"})
     client = Client
+
+    @OneToMany(() => Sale, (sale) => sale.user)
+    sales!: Sale[]
 
     @CreateDateColumn()
     created_at!: Date;

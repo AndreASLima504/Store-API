@@ -1,5 +1,7 @@
-import  { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, ManyToMany, JoinTable, JoinColumn } from "typeorm";
+import  { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, ManyToMany, JoinTable, JoinColumn, ManyToOne, OneToMany } from "typeorm";
 import { Product } from "./product";
+import { User } from "./user";
+import { ProductToSale } from "./productToSale";
 
 @Entity("sale")
 class Sale{
@@ -8,15 +10,18 @@ class Sale{
     @Column()
     userId!: string;
     @Column()
-    clientId!: string;
-    @Column()
-    quantity!: number;
-    @Column()
     value!: number;
     
-    @ManyToMany((type) => Product, (product) => product.sales)
-    productList!: Product[]
+    // @ManyToMany(() => Product, (product) => product.sales)
+    // productList!: Product[]
 
+    @ManyToOne(() => User, (user) => user.sales)
+    @JoinColumn({name: "userId"})
+    user!: User
+
+    @OneToMany(() => ProductToSale, (prodSale) => prodSale.sale)
+    productToSale!: ProductToSale[]
+    
     @CreateDateColumn()
     createdAt!: Date;
     @UpdateDateColumn()

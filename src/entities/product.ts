@@ -1,6 +1,7 @@
-import { PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, Entity, ManyToOne, JoinColumn, ManyToMany, JoinTable } from "typeorm";
+import { PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, Entity, ManyToOne, JoinColumn, ManyToMany, JoinTable, OneToMany } from "typeorm";
 import { Category } from "./category";
 import { Sale } from "./sale";
+import { ProductToSale } from "./productToSale";
 
 @Entity("product")
 class  Product {
@@ -19,10 +20,12 @@ class  Product {
     @JoinColumn({ name: "categoryId" })
     category: Category
 
-    @ManyToMany((type) => Sale, (sale) => sale.productList, { cascade: true})
-    @JoinTable()
-    sales: Sale[]
+    // @ManyToMany((type) => Sale, (sale) => sale.productList, { cascade: true})
+    // @JoinTable()
+    // sales: Sale[]
 
+    @OneToMany(() => ProductToSale, (prodSale) => prodSale.product)
+    productToSale!: ProductToSale[]
 
     @CreateDateColumn()
     createdAt!: Date;
