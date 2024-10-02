@@ -1,4 +1,15 @@
 services:
+  db:
+    image: mysql/mysql-server:latest
+    #   context: .
+    #   dockerfile: src\database\Dockerfile
+    container_name: my-mysql
+    restart: always
+    environment:
+      - MYSQL_DATABASE=app
+      - MYSQL_ROOT_PASSWORD=root
+    ports:
+      - '3306:3306'
   api:
     build: .
     command:  ["yarn", "dev"]

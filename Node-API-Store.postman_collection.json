@@ -70,7 +70,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"name\": \"Maico\",\r\n    \"email\": \"maico@mail.com\",\r\n    \"admin\": true,\r\n    \"password\": \"maicosenha\"\r\n}",
+							"raw": "{\r\n    \"name\": \"Jorge\",\r\n    \"email\": \"jorge@mail.com\",\r\n    \"admin\": true,\r\n    \"password\": \"jorgesenha\",\r\n    \"clientId\": \"eff565a3-f22c-4829-a012-f7f531d4553e\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -116,6 +116,37 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "New Request",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Marçal\",\r\n    \"email\": \"marcal@mail.com\",\r\n    \"admin\": true,\r\n    \"password\": \"marcalsenha\",\r\n    \"clientId\": \"fb00e2ce-f78e-4c65-b7d1-67e95bb6502b\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:3000/users",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "3000",
+							"path": [
+								"users"
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		},
@@ -151,7 +182,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"userId\": \"idUsuario\",\r\n    \"productId\": \"idProduto\",\r\n    \"clientId\": \"idCliente\",\r\n    \"quantity\": 88,\r\n    \"value\": 70\r\n}",
+							"raw": "{\r\n    \"id\": \"\",\r\n    \"userId\": \"\",\r\n    \"products\": [{\r\n        \"productId\": \"61c66a52-438a-4557-bc39-d958ca44417d\",\r\n        \"quantity\": 2\r\n    }]\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -183,7 +214,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"productId\": \"idProduto\",\r\n    \"clientId\": \"idCliente\",\r\n    \"userId\": \"idUsuario\",\r\n    \"quantity\": 4,\r\n    \"value\": 70\r\n}",
+							"raw": "{\r\n   \"userId\": \"bf75f273-3aaa-45d6-a560-c865600771a4\",\r\n   \"products\": [{\r\n        \"productId\": \"61c66a52-438a-4557-bc39-d958ca44417d\",\r\n        \"quantity\": 2\r\n    },{\r\n        \"productId\": \"5295807a-83be-4a0b-b667-198829e8869c\",\r\n        \"quantity\": 2\r\n    }\r\n    ]\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -292,6 +323,16 @@
 				{
 					"name": "Create Category",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImpvcmdlQG1haWwuY29tIiwiaWF0IjoxNzI2NzE3MDIxLCJleHAiOjE3MjY3MjQyMjEsInN1YiI6Im90aGVycyJ9.R_UTcDLoNxhMFqfNEwLIyF7ubGwxUV7kyLbXq3upTiA",
+									"type": "string"
+								}
+							]
+						},
 						"method": "POST",
 						"header": [],
 						"body": {
@@ -344,6 +385,324 @@
 					"response": []
 				}
 			]
+		},
+		{
+			"name": "Product",
+			"item": [
+				{
+					"name": "List Products",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:3000/products",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "3000",
+							"path": [
+								"products"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Product",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImpvcmdlQG1haWwuY29tIiwiaWF0IjoxNzI2NzE3MDIxLCJleHAiOjE3MjY3MjQyMjEsInN1YiI6Im90aGVycyJ9.R_UTcDLoNxhMFqfNEwLIyF7ubGwxUV7kyLbXq3upTiA",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Sardinha\",\r\n    \"description\": \"Sardinha enlatada com molho de tomate\",\r\n    \"price\": 3,\r\n    \"categoryId\": \"437364be-8ff6-4c72-8485-acecca4d509d\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:3000/products",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "3000",
+							"path": [
+								"products"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Product 2",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImpvcmdlQG1haWwuY29tIiwiaWF0IjoxNzI2NzE3MDIxLCJleHAiOjE3MjY3MjQyMjEsInN1YiI6Im90aGVycyJ9.R_UTcDLoNxhMFqfNEwLIyF7ubGwxUV7kyLbXq3upTiA",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Leite condensado\",\r\n    \"description\": \"Leite condensado Italac\",\r\n    \"price\": 4,\r\n    \"categoryId\": \"437364be-8ff6-4c72-8485-acecca4d509d\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:3000/products",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "3000",
+							"path": [
+								"products"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Product",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Borrachão\",\r\n    \"description\": \"Borracha faber castell\",\r\n    \"price\": 5,\r\n    \"categoryId\": \"materiaisId\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:3000/products/2b82dfd3-ffd2-4b83-9089-bd432ebf4495",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "3000",
+							"path": [
+								"products",
+								"2b82dfd3-ffd2-4b83-9089-bd432ebf4495"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Product",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:3000/products/e2660908-e609-40cf-8778-03e9bc4eb370",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "3000",
+							"path": [
+								"products",
+								"e2660908-e609-40cf-8778-03e9bc4eb370"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Client",
+			"item": [
+				{
+					"name": "List Clients",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:3000/clients",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "3000",
+							"path": [
+								"clients"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create Client",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImpvcmdlQG1haWwuY29tIiwiaWF0IjoxNzI2NzE3MDIxLCJleHAiOjE3MjY3MjQyMjEsInN1YiI6Im90aGVycyJ9.R_UTcDLoNxhMFqfNEwLIyF7ubGwxUV7kyLbXq3upTiA",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Jorge\",\r\n    \"email\": \"jorge2010@mail.com\",\r\n    \"cpf\": \"12345678901\",\r\n    \"address\": \"rua sei lá das quantas\",\r\n    \"phone\": \"11999999999\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:3000/clients",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "3000",
+							"path": [
+								"clients"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Client",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Julia\",\r\n    \"email\": \"email@mail.com\",\r\n    \"cpf\": \"12345678901\",\r\n    \"address\": \"rua sei lá das quantas\",\r\n    \"phone\": \"11988888888\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://127.0.0.1:3000/clients/e066f735-9816-4354-b026-f455d7d3ae03",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "3000",
+							"path": [
+								"clients",
+								"e066f735-9816-4354-b026-f455d7d3ae03"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Client",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://127.0.0.1:3000/clients/786bc8e5-f381-4f81-9375-b867fa62a592",
+							"protocol": "http",
+							"host": [
+								"127",
+								"0",
+								"0",
+								"1"
+							],
+							"port": "3000",
+							"path": [
+								"clients",
+								"786bc8e5-f381-4f81-9375-b867fa62a592"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Login",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\": \"jorge@mail.com\",\r\n    \"password\": \"jorgesenha\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://127.0.0.1:3000/login",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "3000",
+					"path": [
+						"login"
+					]
+				}
+			},
+			"response": []
 		}
 	]
 }

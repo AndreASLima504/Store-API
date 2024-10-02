@@ -115,4 +115,4 @@ ENV port 3000
 
 EXPOSE 3000
 
-CMD [ "yarn", "dev" ]
+CMD [ "yarn", "typeorm", "migration:generate", "-n migration" ]
