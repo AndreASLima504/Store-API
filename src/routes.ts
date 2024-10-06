@@ -3,6 +3,7 @@ import { Router } from "express";
 import { AuthenticateUserController } from "./controller/AuthenticateUserController";
 import { ensureAuthenticated} from "./middleware/ensureAuthenticated";
 
+// Importando as controllers
 import { UserController } from "./controller/UserController";
 import { SaleController } from "./controller/SaleController";
 import { ProductController } from "./controller/ProductController";
@@ -10,7 +11,6 @@ import { ClientController } from "./controller/ClientController";
 import { CategoryController } from "./controller/CategoryController";
 const router = Router();
 
-// Importando as controllers
 const userController = new UserController();
 const saleController = new SaleController();
 const clientController = new ClientController();
@@ -23,11 +23,10 @@ const autenticateUserController  = new AuthenticateUserController();
 router.post("/users", userController.createUser);
 router.post("/login", autenticateUserController.authenticateUser);
 
-// router.use((req, res, next) => {
-//     console.log('Time:', Date.now())
-//     ensureAuthenticated(req, res, next)
-// })
-
+router.use((req, res, next) => {
+    console.log('Time:', Date.now())
+    ensureAuthenticated(req, res, next)
+})
 
 //Rotas para users
 router.get("/users", userController.listUsers);
@@ -59,9 +58,5 @@ router.get("/sales", saleController.listSales)
 router.put("/sales/:id", saleController.updateSale)
 router.post("/sales", saleController.createSale)
 router.delete("/sales/:id", saleController.deleteSale)
-
-
-
-// router.use(ensureAuthenticated(req))
 
 export {router} 

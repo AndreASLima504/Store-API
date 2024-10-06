@@ -11,7 +11,11 @@ services:
     ports:
       - '3306:3306'
   api:
-    build: .
+    build: 
+      context: .
+      dockerfile: Dockerfile
     command:  ["yarn", "dev"]
+    volumes:
+      - .:/app
     ports:
       - "3000:3000"

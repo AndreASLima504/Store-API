@@ -13,7 +13,6 @@ export function ensureAuthenticated(
 ) {
   // Receber o token
   const authToken = request.headers.authorization;
-  console.log(authToken)
   // Validar se token está preenchido
   if (!authToken) {
     return response.status(401).end();
