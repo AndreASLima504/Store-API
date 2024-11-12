@@ -23,8 +23,19 @@ class ProductService{
         const productRepositories = getCustomRepository(ProductRepositories)    
         const products = await productRepositories
         .createQueryBuilder("product")
-        .getMany()
+        .innerJoin("product.category", "category")
+        .select([
+            "product.id AS id",
+            "product.name AS name",
+            "product.description AS description",
+            "product.price AS price",
+            "product.categoryId AS categoryId",
+            "category.name AS categoryName",
+        ])
+        // .addSelect("category.name", "categoryName") // Define um alias personalizado para o nome da categoria
+        .getRawMany();
         return products
+
     }
 
 

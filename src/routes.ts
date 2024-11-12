@@ -23,10 +23,10 @@ const autenticateUserController  = new AuthenticateUserController();
 router.post("/users", userController.createUser);
 router.post("/login", autenticateUserController.authenticateUser);
 
-router.use((req, res, next) => {
-    console.log('Time:', Date.now())
-    ensureAuthenticated(req, res, next)
-})
+// router.use((req, res, next) => {
+//     console.log('Time:', Date.now())
+//     ensureAuthenticated(req, res, next)
+// })
 
 //Rotas para users
 router.get("/users", userController.listUsers);
