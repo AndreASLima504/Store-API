@@ -20,10 +20,10 @@ class ClientController{
 
     async listClients(request: Request, response: Response){
         const clientService = new ClientService()
-        const clients = await clientService.listClients()
-
-        const res = response.json(clients)
-        return res
+        const res = await clientService.listClients()
+        console.log(res)
+        const clients = response.json(res)
+        return clients
     }
 
 

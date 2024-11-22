@@ -34,12 +34,22 @@ class UserService{
         const usersRepositories = getCustomRepository(UserRepositories);
         const users = await usersRepositories
         .createQueryBuilder("user")
-        .getMany()
+        .leftJoin("user.client", "client")
+        .select([
+            "user.id AS id",
+            "user.name AS name",
+            "user.email AS email",
+            "user.admin AS admin",
+            "user.clientId AS clientId",
+            "client.name AS clientName",
+        ])
+        // .addSelect("category.name", "categoryName") // Define um alias personalizado para o nome da categoria
+        .getRawMany();
         return users
     }
 
 
-    async updateUser({id, name, email, admin = false, password}: IUserRequest){
+    async updateUser({id, name, email, admin = false, password, clientId}: IUserRequest){
         if (!email) {
             throw new Error ("Email Incorrect");
         }
@@ -57,10 +67,12 @@ class UserService{
         }
 
         user.name=name
+        user.email=email
         user.admin=admin
         user.password=passwordHash
+        user.clientId=clientId
 
-        const res = await usersRepository.update(id, user)
+        const res = await usersRepository.save(user)
         return res
     }
 

@@ -15,11 +15,12 @@ class SaleController {
     }
 
     
-    async listSales(response: Response) {
+    async listSales(request: Request, response: Response) {
         const saleService = new SaleService()
-
-        const sale = await saleService.listSales();
-        return response.json(sale);
+        const res = await saleService.listSales();
+        console.log(res)
+        const sales = response.json(res) 
+        return sales
     }
 
     
