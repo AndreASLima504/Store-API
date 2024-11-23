@@ -11,9 +11,6 @@ class Sale{
     userId!: string;
     @Column()
     value!: number;
-    
-    // @ManyToMany(() => Product, (product) => product.sales)
-    // productList!: Product[]
 
     @ManyToOne(() => User, (user) => user.sales)
     @JoinColumn({name: "userId"})

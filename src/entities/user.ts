@@ -1,6 +1,7 @@
 import  { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, ManyToOne, JoinColumn, OneToMany } from "typeorm";
 import { Client } from "./client";
 import { Sale } from "./sale";
+import { Profile } from "./profile";
 
 @Entity("user")
 class User {
@@ -15,11 +16,17 @@ class User {
     @Column()
     password!: string;
     @Column({ nullable: true})
-    clientId: string
+    clientId: string;
+    @Column({ nullable: true})
+    profileId: string;
 
     @ManyToOne(() => Client, (client) => client.users, { nullable: true})
     @JoinColumn({name: "clientId"})
     client = Client
+    
+    @ManyToOne(() => Profile, (profile) => profile.users, { nullable: true})
+    @JoinColumn({name: "profileId"})
+    profile = Profile
 
     @OneToMany(() => Sale, (sale) => sale.user)
     sales!: Sale[]

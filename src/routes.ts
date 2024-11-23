@@ -9,6 +9,7 @@ import { SaleController } from "./controller/SaleController";
 import { ProductController } from "./controller/ProductController";
 import { ClientController } from "./controller/ClientController";
 import { CategoryController } from "./controller/CategoryController";
+import { ProfileController } from "./controller/ProfileController";
 const router = Router();
 
 const userController = new UserController();
@@ -16,6 +17,7 @@ const saleController = new SaleController();
 const clientController = new ClientController();
 const productController = new ProductController();
 const categoryController = new CategoryController();
+const profileController = new ProfileController();
 
 const autenticateUserController  = new AuthenticateUserController();
 
@@ -59,4 +61,9 @@ router.put("/sales/:id", saleController.updateSale)
 router.post("/sales", saleController.createSale)
 router.delete("/sales/:id", saleController.deleteSale)
 
+// Rotas para Profile
+router.get("/profiles", profileController.listProfiles)
+router.put("/profiles/:id", profileController.updateProfile)
+router.post("/profiles", profileController.createProfile)
+router.delete("/profiles/:id", profileController.deleteProfile)
 export {router} 
