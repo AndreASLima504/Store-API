@@ -2,9 +2,9 @@ interface IStoreRequest{
     id?: string;
     name: string;
     address: string;
-    rating: string
+    description: string;
     isOfficial: boolean;
     inOperation: boolean;
-    categoryId: string;
+    categoryId?: string;
 }
 export {IStoreRequest}

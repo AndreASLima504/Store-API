@@ -7,16 +7,16 @@ import { ProductToSale } from "./productToSale";
 class Sale{
     @PrimaryGeneratedColumn("uuid")
     readonly id!: string;
-    @Column()
+    @Column({nullable: true})
     userId!: string;
     @Column()
     value!: number;
 
-    @ManyToOne(() => User, (user) => user.sales)
+    @ManyToOne(() => User, (user) => user.sales, {nullable: true, onDelete: "SET NULL"})
     @JoinColumn({name: "userId"})
     user!: User
 
-    @OneToMany(() => ProductToSale, (prodSale) => prodSale.sale)
+    @OneToMany(() => ProductToSale, (prodSale) => prodSale.sale, {onDelete: "CASCADE"})
     productToSale!: ProductToSale[]
     
     @CreateDateColumn()

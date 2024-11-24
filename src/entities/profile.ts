@@ -8,7 +8,7 @@ export class Profile {
       @Column()
       name: string
 
-    @OneToMany(() => User, (user) => user.profile)
+    @OneToMany(() => User, (user) => user.profile, {nullable: true, onDelete: "SET NULL"})
     @JoinColumn({ name: "profileId" })
     users: User[]
 

@@ -20,11 +20,11 @@ class User {
     @Column({ nullable: true})
     profileId: string;
 
-    @ManyToOne(() => Client, (client) => client.users, { nullable: true})
+    @ManyToOne(() => Client, (client) => client.users, { nullable: true, onDelete: "SET NULL"})
     @JoinColumn({name: "clientId"})
     client = Client
     
-    @ManyToOne(() => Profile, (profile) => profile.users, { nullable: true})
+    @ManyToOne(() => Profile, (profile) => profile.users, { nullable: true, onDelete: "SET NULL"},)
     @JoinColumn({name: "profileId"})
     profile = Profile
 

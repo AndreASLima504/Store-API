@@ -6,14 +6,15 @@ class UserController{
 
     // Inserir novo usuário
     async createUser(request: Request, response: Response) {
-        const {name, email, admin, password, clientId} = request.body;
+        const {name, email, admin, password, clientId, profileId} = request.body;
         const user =
         {
             name:name,
             email:email,
             admin:admin,
             password:password,
-            clientId:clientId
+            clientId:clientId,
+            profileId: profileId
         };
         const userService = new UserService()
         const ret =  await userService.createUser(user)
@@ -29,7 +30,7 @@ class UserController{
 
 
     async updateUser(request: Request, response: Response) {
-        const {name, email, admin, password, clientId } = request.body;
+        const {name, email, admin, password, clientId, profileId } = request.body;
         const id = request.params.id;
         const user = 
     {
@@ -39,6 +40,7 @@ class UserController{
         admin:admin,
         password:password,
         clientId:clientId,
+        profileId: profileId,
     };
     const userService = new UserService()
     const ret =  await userService.updateUser(user)

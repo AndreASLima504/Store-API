@@ -4,7 +4,7 @@ import { UserRepositories } from "../repositories/userRepositories";
 import { getCustomRepository } from "typeorm";
 
 class UserService{
-    async createUser({ name, email, admin = false, password, clientId }: IUserRequest) {
+    async createUser({ name, email, admin = false, password, clientId, profileId }: IUserRequest) {
         if (!email) {
           throw new Error("Email incorrect");
         }
@@ -23,7 +23,8 @@ class UserService{
             email,
             admin,
             password: passwordHash,
-            clientId: clientId
+            clientId: clientId,
+            profileId: profileId
         });
         await usersRepository.save(user);  
         return user;
@@ -34,7 +35,8 @@ class UserService{
         const usersRepositories = getCustomRepository(UserRepositories);
         const users = await usersRepositories
         .createQueryBuilder("user")
-        .leftJoin("user.client", "client")
+        .leftJoinAndSelect("user.client", "client")
+        .leftJoinAndSelect("user.profile", "profile")
         .select([
             "user.id AS id",
             "user.name AS name",
@@ -42,6 +44,8 @@ class UserService{
             "user.admin AS admin",
             "user.clientId AS clientId",
             "client.name AS clientName",
+            "user.profileId AS profileId",
+            "profile.name AS profileName"
         ])
         // .addSelect("category.name", "categoryName") // Define um alias personalizado para o nome da categoria
         .getRawMany();
@@ -49,7 +53,7 @@ class UserService{
     }
 
 
-    async updateUser({id, name, email, admin = false, password, clientId}: IUserRequest){
+    async updateUser({id, name, email, admin = false, password, clientId, profileId}: IUserRequest){
         if (!email) {
             throw new Error ("Email Incorrect");
         }
@@ -70,7 +74,8 @@ class UserService{
         user.email=email
         user.admin=admin
         user.password=passwordHash
-        user.clientId=clientId
+        user.clientId=clientId,
+        user.profileId=profileId
 
         const res = await usersRepository.save(user)
         return res

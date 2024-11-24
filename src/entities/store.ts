@@ -11,13 +11,15 @@ class Store{
     @Column()
     address: string;
     @Column()
-    rating: number;
+    description: string;
     @Column()
     isOfficial: boolean;
     @Column()
     inOperation: boolean;
+    @Column({nullable: true})
+    categoryId: string;
     
-    @ManyToOne(() => Category, (category) => category.stores)
+    @ManyToOne(() => Category, (category) => category.stores, {nullable: true, onDelete: "SET NULL"})
     @JoinColumn({ name: "categoryId" })
     category: Category
 

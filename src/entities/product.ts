@@ -13,18 +13,14 @@ class  Product {
     description!: string;
     @Column()
     price!: number;
-    @Column()
+    @Column({nullable: true})
     categoryId!: string;
 
-    @ManyToOne(() => Category, (category) => category.products)
+    @ManyToOne(() => Category, (category) => category.products, {nullable: true, onDelete: "SET NULL"})
     @JoinColumn({ name: "categoryId" })
     category: Category
 
-    // @ManyToMany((type) => Sale, (sale) => sale.productList, { cascade: true})
-    // @JoinTable()
-    // sales: Sale[]
-
-    @OneToMany(() => ProductToSale, (prodSale) => prodSale.product)
+    @OneToMany(() => ProductToSale, (prodSale) => prodSale.product,{ onDelete: "CASCADE"} )
     productToSale!: ProductToSale[]
 
     @CreateDateColumn()

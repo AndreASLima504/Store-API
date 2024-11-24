@@ -5,6 +5,7 @@ interface IUserRequest {
     admin?: boolean;
     password: string;
     clientId?: string;
+    profileId?: string;
 }
 
     export{ IUserRequest }

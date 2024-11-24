@@ -12,12 +12,10 @@ class  Category {
     description!: string;
     
     @OneToMany(() => Product, (product) => product.category)
-    @JoinColumn({ name: "categoryId" })
     products: Product[]
 
     @OneToMany(() => Store, (store) => store.category)
-    @JoinColumn({ name: "categoryId" })
-    stores: Product[]
+    stores: Store[]
     
     @CreateDateColumn()
     createdAt!: Date;
