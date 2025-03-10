@@ -1,11 +1,13 @@
+import { Client } from "../entities/client";
+import { StringEnum } from "../entities/user";
+
 interface IUserRequest {
     id?: string;
     name: string;
     email:string;
-    admin?: boolean;
     password: string;
     clientId?: string;
-    profileId?: string;
+    role:StringEnum
 }
 
     export{ IUserRequest }

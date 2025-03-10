@@ -1,5 +1,6 @@
-import { PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, Entity, JoinColumn, ManyToOne } from "typeorm";
+import { PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, Entity, JoinColumn, ManyToOne, OneToMany } from "typeorm";
 import { Category } from "./category";
+import { Sale } from "./sale";
 
 @Entity("store")
 class Store{
@@ -18,7 +19,10 @@ class Store{
     inOperation: boolean;
     @Column({nullable: true})
     categoryId: string;
-    
+
+    @OneToMany(() => Sale, (sale) => sale.store, {nullable: true, onDelete: "CASCADE"})
+    sales: Sale[];
+
     @ManyToOne(() => Category, (category) => category.stores, {nullable: true, onDelete: "SET NULL"})
     @JoinColumn({ name: "categoryId" })
     category: Category

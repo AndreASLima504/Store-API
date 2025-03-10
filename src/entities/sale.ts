@@ -2,6 +2,7 @@ import  { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateCo
 import { Product } from "./product";
 import { User } from "./user";
 import { ProductToSale } from "./productToSale";
+import { Store } from "./store";
 
 @Entity("sale")
 class Sale{
@@ -11,6 +12,10 @@ class Sale{
     userId!: string;
     @Column()
     value!: number;
+
+    @ManyToOne(() => Store, (store) => store.sales, {nullable: true, onDelete: "SET NULL"})
+    @JoinColumn({name: "storeId"})
+    store = Store
 
     @ManyToOne(() => User, (user) => user.sales, {nullable: true, onDelete: "SET NULL"})
     @JoinColumn({name: "userId"})

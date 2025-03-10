@@ -9,7 +9,6 @@ import { SaleController } from "./controller/SaleController";
 import { ProductController } from "./controller/ProductController";
 import { ClientController } from "./controller/ClientController";
 import { CategoryController } from "./controller/CategoryController";
-import { ProfileController } from "./controller/ProfileController";
 import { StoreController } from "./controller/StoreController";
 const router = Router();
 
@@ -18,14 +17,13 @@ const saleController = new SaleController();
 const clientController = new ClientController();
 const productController = new ProductController();
 const categoryController = new CategoryController();
-const profileController = new ProfileController();
 const storeController = new StoreController();
 
 const autenticateUserController  = new AuthenticateUserController();
 
 // Rota para cadastrar e autenticar usuário
 router.post("/users", userController.createUser);
-router.post("/login", autenticateUserController.authenticateUser);
+// router.post("/login", autenticateUserController.authenticateUser);
 
 // router.use((req, res, next) => {
 //     console.log('Time:', Date.now())
@@ -62,12 +60,6 @@ router.get("/sales", saleController.listSales)
 router.put("/sales/:id", saleController.updateSale)
 router.post("/sales", saleController.createSale)
 router.delete("/sales/:id", saleController.deleteSale)
-
-// Rotas para Profile
-router.get("/profiles", profileController.listProfiles)
-router.put("/profiles/:id", profileController.updateProfile)
-router.post("/profiles", profileController.createProfile)
-router.delete("/profiles/:id", profileController.deleteProfile)
 
 // Rotas para Store
 router.get("/stores", storeController.listStores)

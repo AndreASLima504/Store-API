@@ -2,9 +2,10 @@ import { IUserRequest } from "../interface/IUserRequest";
 import { hash } from "bcryptjs";
 import { UserRepositories } from "../repositories/userRepositories";
 import { getCustomRepository } from "typeorm";
+import { ClientRepositories } from "../repositories/clientRepositories";
 
 class UserService{
-    async createUser({ name, email, admin = false, password, clientId, profileId }: IUserRequest) {
+    async createUser({ name, email, password, clientId }: IUserRequest) {
         if (!email) {
           throw new Error("Email incorrect");
         }
@@ -17,14 +18,24 @@ class UserService{
         var passwordHash = bcrypt.hashSync(password, salt);
     
         const usersRepository = getCustomRepository(UserRepositories);
+        const clientRepository = getCustomRepository(ClientRepositories);
+
+        let client = null
+        if(clientId != null){
+            const clientExists = clientRepository.findOne({id: clientId})
+
+            if(clientExists){
+                client = clientExists
+            }else{
+                throw new Error ("Client does not exist")
+            }
+        }
         const user = usersRepository.create(
         {
             name,
             email,
-            admin,
             password: passwordHash,
-            clientId: clientId,
-            profileId: profileId
+            client: client,
         });
         await usersRepository.save(user);  
         return user;
@@ -36,16 +47,13 @@ class UserService{
         const users = await usersRepositories
         .createQueryBuilder("user")
         .leftJoinAndSelect("user.client", "client")
-        .leftJoinAndSelect("user.profile", "profile")
         .select([
             "user.id AS id",
             "user.name AS name",
             "user.email AS email",
-            "user.admin AS admin",
+            "user.role AS role",
             "user.clientId AS clientId",
             "client.name AS clientName",
-            "user.profileId AS profileId",
-            "profile.name AS profileName"
         ])
         // .addSelect("category.name", "categoryName") // Define um alias personalizado para o nome da categoria
         .getRawMany();
@@ -53,7 +61,7 @@ class UserService{
     }
 
 
-    async updateUser({id, name, email, admin = false, password, clientId, profileId}: IUserRequest){
+    async updateUser({id, name, email, password, clientId, role}: IUserRequest){
         if (!email) {
             throw new Error ("Email Incorrect");
         }
@@ -66,16 +74,29 @@ class UserService{
         const user = await usersRepository.findOne({
             id,
         });
-            if(!user) {
+        
+        if(!user) {
             throw new Error("User does not exist");
+        }
+
+        let client = null
+        const clientRepository = getCustomRepository(ClientRepositories);
+        if(clientId != null){
+            const clientExists = await clientRepository.findOne({id: clientId})
+            
+            if(clientExists){
+                client = clientExists
+            }else{
+                throw new Error ("Client does not exist")
+            }
         }
 
         user.name=name
         user.email=email
-        user.admin=admin
         user.password=passwordHash
-        user.clientId=clientId,
-        user.profileId=profileId
+        user.client=client
+        user.role=role
+
 
         const res = await usersRepository.save(user)
         return res

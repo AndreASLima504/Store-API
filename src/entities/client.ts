@@ -8,8 +8,6 @@ class Client{
     @Column()
     name!: string
     @Column()
-    description!: string;
-    @Column()
     cpf!: string;
     @Column()
     address!: string;
@@ -17,7 +15,7 @@ class Client{
     phone!: string;
     
     @OneToMany(() => User, (user) => user.client)
-    users!: User[]
+    users?: User[]
 
 
     @CreateDateColumn()

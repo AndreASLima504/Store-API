@@ -1,7 +1,11 @@
 import  { Entity, PrimaryGeneratedColumn, Column, CreateDateColumn, UpdateDateColumn, ManyToOne, JoinColumn, OneToMany } from "typeorm";
 import { Client } from "./client";
 import { Sale } from "./sale";
-import { Profile } from "./profile";
+
+export enum StringEnum {
+    ADMIN = "admin",
+    DEFAULT = "operador"
+}
 
 @Entity("user")
 class User {
@@ -11,22 +15,15 @@ class User {
     name!: string;
     @Column()
     email!: string;
-    @Column()
-    admin!: boolean;
+
     @Column()
     password!: string;
-    @Column({ nullable: true})
-    clientId: string;
-    @Column({ nullable: true})
-    profileId: string;
+    @Column({type: "enum", enum: StringEnum, default: [StringEnum.DEFAULT] })
+    role: StringEnum;
 
     @ManyToOne(() => Client, (client) => client.users, { nullable: true, onDelete: "SET NULL"})
     @JoinColumn({name: "clientId"})
     client = Client
-    
-    @ManyToOne(() => Profile, (profile) => profile.users, { nullable: true, onDelete: "SET NULL"},)
-    @JoinColumn({name: "profileId"})
-    profile = Profile
 
     @OneToMany(() => Sale, (sale) => sale.user)
     sales!: Sale[]
