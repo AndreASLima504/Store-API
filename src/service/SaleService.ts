@@ -6,23 +6,34 @@ import { SaleRepositories } from "../repositories/saleRepositories";
 import { getCustomRepository } from "typeorm";
 import { ProductToSale } from "../entities/productToSale";
 import { ProductToSaleRepositories } from "../repositories/productToSale";
+import { StoreRepositories } from "../repositories/storeRepositories";
 
 
 class SaleService{
     // Recebe lista de ids dos produtos em string[]
-    async createSale({userId, products}: ISaleRequest){
+    async createSale({userId, products, storeId}: ISaleRequest){
         const saleRepositories = getCustomRepository(SaleRepositories)
         // Cria uma nova lista de product[]
         const productRepositories = getCustomRepository(ProductRepositories)
         const productToSaleRepositories = getCustomRepository(ProductToSaleRepositories)
+        const storeRepositories = getCustomRepository(StoreRepositories)
         const productToSale: ProductToSale[] = []
 
+        let store = null
+        const storeExists = await storeRepositories.findOne({id: storeId})
+        if(storeExists){
+            store = storeExists
+        }else{
+            throw new Error ("Store does not exist")
+        }
         const sale = saleRepositories.create({
             userId,
             productToSale,
+            store:store,
             value: 0, 
         })
         
+
         // Itera na lista de ids, inserindo objetos Product na lista
         let saleFinalValue = 0
 
@@ -47,10 +58,12 @@ class SaleService{
         sale.value = saleFinalValue
         sale.productToSale = productToSale
         
-        // Método que cria e salva tupla no banco
+
         const saleId = (await saleRepositories.save(sale)).id;
         
-        console.log(sale, saleId)
+        
+        
+        //Definindo e salvando tuplas da entidade intermediária        
         for(const item of productToSale){
             item.saleId = saleId
             await productToSaleRepositories.save(item)
@@ -68,7 +81,7 @@ class SaleService{
     }
 
 
-    async updateSale({id, userId, products}: ISaleRequest){
+    async updateSale({id, userId, products, storeId}: ISaleRequest){
         const saleRepositories = getCustomRepository(SaleRepositories)
         const productToSaleRepositories = getCustomRepository(ProductToSaleRepositories)
 
@@ -80,9 +93,10 @@ class SaleService{
         }
 
         const productRepositories = getCustomRepository(ProductRepositories)
+        const storeRepositories = getCustomRepository(StoreRepositories)
         const productToSale: ProductToSale[] = []
         
-        let saleFinalValue
+        let saleFinalValue = 0
         for (const p of products) {
             const product = await productRepositories.findOne({ where: { id: p.productId } });
             if(!product){
@@ -90,7 +104,6 @@ class SaleService{
             }
             
             const subtotal = p.quantity * product.price
-            
             const newProdToSale = productToSaleRepositories.create({
                 saleId: sale.id,
                 productId: p.productId,
@@ -100,11 +113,24 @@ class SaleService{
             saleFinalValue += subtotal
             productToSale.push(newProdToSale)
         }
-
+        
+        let store = null
+        const storeExists = await storeRepositories.findOne({id: storeId})
+        if(storeExists){
+            store = storeExists
+        }else{
+            throw new Error ("Store does not exist")
+        }
+        
         sale.userId = userId
-        sale.productToSale = productToSale
+        sale.store = store
+        sale.value = saleFinalValue
 
-        const newSale = await saleRepositories.update(id, sale)
+        for(const item of productToSale){
+            item.saleId = id
+            await productToSaleRepositories.save(item)
+        }
+        const newSale = await saleRepositories.save(sale)
         return newSale
     }
 

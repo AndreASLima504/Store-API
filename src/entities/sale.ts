@@ -12,10 +12,12 @@ class Sale{
     userId!: string;
     @Column()
     value!: number;
+    @Column()
+    storeId: string;
 
-    @ManyToOne(() => Store, (store) => store.sales, {nullable: true, onDelete: "SET NULL"})
-    @JoinColumn({name: "storeId"})
-    store = Store
+    @ManyToOne(() => Store, (store) => store.sales, { nullable: true, onDelete: "SET NULL" })
+    @JoinColumn({ name: "storeId" })
+    store!: Store;
 
     @ManyToOne(() => User, (user) => user.sales, {nullable: true, onDelete: "SET NULL"})
     @JoinColumn({name: "userId"})

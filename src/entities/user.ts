@@ -15,7 +15,6 @@ class User {
     name!: string;
     @Column()
     email!: string;
-
     @Column()
     password!: string;
     @Column({type: "enum", enum: StringEnum, default: [StringEnum.DEFAULT] })
@@ -25,7 +24,7 @@ class User {
     @JoinColumn({name: "clientId"})
     client = Client
 
-    @OneToMany(() => Sale, (sale) => sale.user)
+    @OneToMany(() => Sale, (sale) => sale.user,{onDelete: "CASCADE"})
     sales!: Sale[]
 
     @CreateDateColumn()
