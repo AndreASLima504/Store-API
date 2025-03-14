@@ -76,7 +76,31 @@ class SaleService{
         const saleRepositories = getCustomRepository(SaleRepositories);
         const sales = await saleRepositories
         .createQueryBuilder("sale")
-        .getMany()
+        .leftJoinAndSelect("sale.user", "user")
+        .leftJoinAndSelect("sale.store", "store")
+        .leftJoin("sale.productToSale", "prodSale")
+        .leftJoinAndSelect("prodSale.product", "product")
+        .select([
+            "sale.id AS saleId",
+            "user.name AS userName",
+            "store.name AS storeName"
+        ])
+        .addSelect(
+            `CONCAT('[', 
+            GROUP_CONCAT(
+                JSON_OBJECT(
+                    'productId', product.id,
+                    'productName', product.name,
+                    'quantity', prodSale.quantity
+                )
+                SEPARATOR ','
+            ), 
+        ']')`,
+        "products"
+        )
+        .addSelect(["sale.value AS saleValue"])
+        .groupBy("sale.id, user.name, store.name, sale.value")
+        .getRawMany()
         return sales
     }
 
